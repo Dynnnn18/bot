@@ -10,41 +10,31 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
+            text-align: center;
             display: flex;
-            justify-content: center;  /* Center horizontally */
-            align-items: center;      /* Center vertically */
-            height: 100vh;            /* Full viewport height */
-            overflow-y: auto;         /* Allow scrolling */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
         h1, h2 {
             font-size: 30px;
             font-weight: 600;
             margin: 10px 0;
-            color: #fff;
-        }
-
-        .title-container {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #4a90e2;
-            color: #fff;
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #fff; /* Change title color to white */
         }
 
         .main-container {
             display: flex;
-            justify-content: center;  /* Center columns horizontally */
-            gap: 40px;                /* Space between the columns */
+            justify-content: space-between;
             width: 85%;
+            margin-top: 30px;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            flex-wrap: wrap;
+            overflow: hidden;
         }
 
         .left-column, .right-column {
@@ -54,7 +44,6 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            overflow: hidden;
         }
 
         .left-column:hover, .right-column:hover {
@@ -63,6 +52,10 @@
 
         .left-column {
             margin-right: 10px; /* Add space between the columns */
+        }
+
+        .right-column {
+            margin-left: 20px; /* Shift the right column to the right */
         }
 
         .left-column h2, .right-column h2 {
@@ -81,7 +74,6 @@
             width: 520px; /* Total width of 10x10 grid */
             height: 520px; /* Total height of 10x10 grid */
             margin: auto;
-            overflow: hidden; /* Prevent overflow */
         }
 
         .cell {
@@ -115,8 +107,6 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            overflow-y: auto; /* Allow scrolling for data container */
-            max-height: 500px; /* Limit max height */
         }
 
         .data-row {
@@ -149,6 +139,17 @@
             color: #fff;
         }
 
+        .title-container {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
@@ -158,9 +159,9 @@
         <h1>IoT Monitoring and Data Visualization</h1>
     </div>
 
-    <!-- Main Container -->
+    <!-- Sub-title Section -->
     <div class="main-container">
-        <!-- Arena Robot Section -->
+        <!-- Left Column for Arena Robot -->
         <div class="left-column">
             <h2>Arena Robot</h2>
             <div class="arena" id="arena">
@@ -168,7 +169,7 @@
             </div>
         </div>
 
-        <!-- Robot Data Section -->
+        <!-- Right Column for Robot Data -->
         <div class="right-column">
             <h2>Robot Data</h2>
             <div class="data-container">
