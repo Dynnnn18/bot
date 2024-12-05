@@ -117,7 +117,8 @@
             color: #fff;
             font-weight: 600;
             border-radius: 8px;
-            width: 100%;
+            flex: 1; /* Distribute space equally */
+            margin: 0 10px; /* Add space between boxes */
             text-align: center;
             transition: background-color 0.3s ease;
         }
@@ -169,20 +170,14 @@
             <h2>Robot Data</h2>
             <div class="data-row">
                 <span>Compass Angle:</span> <div class="data-box" id="compass-value">0°</div>
-            </div>
-            <div class="data-row">
                 <span>Gripper Status:</span> <div class="data-box" id="gripper-status">Not Gripping</div>
             </div>
             <div class="data-row">
                 <span>Object Color:</span> <div class="data-box" id="object-color">N/A</div>
-            </div>
-            <div class="data-row">
                 <span>Ultrasonic 1 Distance:</span> <div class="data-box" id="ultrasonic1">0 cm</div>
             </div>
             <div class="data-row">
                 <span>Ultrasonic 2 Distance:</span> <div class="data-box" id="ultrasonic2">0 cm</div>
-            </div>
-            <div class="data-row">
                 <span>Ultrasonic 3 Distance:</span> <div class="data-box" id="ultrasonic3">0 cm</div>
             </div>
         </div>
