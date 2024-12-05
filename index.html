@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena Robot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .arena {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(10, 50px);
+            gap: 2px;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #aaa;
+        }
+        .robot {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="arena" id="arena">
+        <!-- Generate 10x10 grid dynamically using JavaScript -->
+    </div>
+
+    <script>
+        // Generate arena grid dynamically
+        const arena = document.getElementById('arena');
+        for (let i = 0; i < 100; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            if (i === 99) {
+                // Place robot at the bottom-right corner
+                const robot = document.createElement('div');
+                robot.className = 'robot';
+                cell.appendChild(robot);
+            }
+            arena.appendChild(cell);
+        }
+    </script>
+</body>
+</html>
