@@ -107,8 +107,8 @@
             font-weight: bold;
             margin-bottom: 15px;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
         }
 
         .data-box {
@@ -117,15 +117,22 @@
             color: #fff;
             font-weight: 600;
             border-radius: 8px;
-            width: 200px; /* Set fixed width for equal sizing */
-            height: 50px; /* Set fixed height for equal sizing */
+            width: 300px; /* Set fixed width for data box */
+            height: 50px; /* Set fixed height */
             text-align: center;
             transition: background-color 0.3s ease;
-            margin: 5px 0; /* Add spacing between boxes */
         }
 
         .data-box:hover {
             background-color: #357ab7;
+        }
+
+        .data-label {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            width: 200px;
+            text-align: left;
         }
 
         #compass-value, #gripper-status, #object-color, #ultrasonic1, #ultrasonic2, #ultrasonic3 {
@@ -170,16 +177,28 @@
         <div class="data-container">
             <h2>Robot Data</h2>
             <div class="data-row">
-                <div class="data-box" id="compass-value">Compass Angle: 0°</div>
-                <div class="data-box" id="gripper-status">Gripper Status: Not Gripping</div>
+                <div class="data-label">Compass Angle:</div>
+                <div class="data-box" id="compass-value">0°</div>
             </div>
             <div class="data-row">
-                <div class="data-box" id="object-color">Object Color: N/A</div>
-                <div class="data-box" id="ultrasonic1">Ultrasonic 1 Distance: 0 cm</div>
+                <div class="data-label">Gripper Status:</div>
+                <div class="data-box" id="gripper-status">Not Gripping</div>
             </div>
             <div class="data-row">
-                <div class="data-box" id="ultrasonic2">Ultrasonic 2 Distance: 0 cm</div>
-                <div class="data-box" id="ultrasonic3">Ultrasonic 3 Distance: 0 cm</div>
+                <div class="data-label">Object Color:</div>
+                <div class="data-box" id="object-color">N/A</div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">Ultrasonic 1 Distance:</div>
+                <div class="data-box" id="ultrasonic1">0 cm</div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">Ultrasonic 2 Distance:</div>
+                <div class="data-box" id="ultrasonic2">0 cm</div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">Ultrasonic 3 Distance:</div>
+                <div class="data-box" id="ultrasonic3">0 cm</div>
             </div>
         </div>
 
@@ -204,12 +223,12 @@
 
         // Sample data updates, replace with actual sensor data
         setInterval(() => {
-            document.getElementById("compass-value").textContent = "Compass Angle: " + Math.floor(Math.random() * 360) + "°";
-            document.getElementById("gripper-status").textContent = "Gripper Status: " + (Math.random() > 0.5 ? "Gripping" : "Not Gripping");
-            document.getElementById("object-color").textContent = "Object Color: " + ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
-            document.getElementById("ultrasonic1").textContent = "Ultrasonic 1 Distance: " + Math.floor(Math.random() * 100) + " cm";
-            document.getElementById("ultrasonic2").textContent = "Ultrasonic 2 Distance: " + Math.floor(Math.random() * 100) + " cm";
-            document.getElementById("ultrasonic3").textContent = "Ultrasonic 3 Distance: " + Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("compass-value").textContent = Math.floor(Math.random() * 360) + "°";
+            document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
+            document.getElementById("object-color").textContent = ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
+            document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
         }, 1000); // Update every second
     </script>
 
