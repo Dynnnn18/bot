@@ -27,6 +27,7 @@
 
         .main-container {
             display: flex;
+            flex-direction: column; /* Stack sections vertically */
             justify-content: space-between;
             width: 85%;
             margin-top: 30px;
@@ -37,8 +38,13 @@
             overflow: hidden;
         }
 
+        .section {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
         .left-column, .right-column {
-            width: 48%;
+            width: 100%;
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 10px;
@@ -159,18 +165,18 @@
         <h1>IoT Monitoring and Data Visualization</h1>
     </div>
 
-    <!-- Sub-title Section -->
+    <!-- Main Container -->
     <div class="main-container">
-        <!-- Left Column for Arena Robot -->
-        <div class="left-column">
+        <!-- Arena Robot Section -->
+        <div class="section left-column">
             <h2>Arena Robot</h2>
             <div class="arena" id="arena">
                 <!-- Grid and robot generated dynamically -->
             </div>
         </div>
 
-        <!-- Right Column for Robot Data -->
-        <div class="right-column">
+        <!-- Robot Data Section -->
+        <div class="section right-column">
             <h2>Robot Data</h2>
             <div class="data-container">
                 <div class="data-row">
