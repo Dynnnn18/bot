@@ -47,13 +47,6 @@
             bottom: 0;
             right: 0;
         }
-        .sensor {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(0, 0, 255, 0.3);
-            border-radius: 50%;
-        }
         #data-container {
             width: 30%;
             padding: 20px;
@@ -65,6 +58,13 @@
             margin-bottom: 15px;
             font-size: 16px;
             font-weight: bold;
+        }
+        .data-box {
+            display: inline-block;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #aaa;
+            width: 100%;
         }
     </style>
 </head>
@@ -79,22 +79,34 @@
         <div id="data-container">
             <h3>Robot Data</h3>
             <div class="data-row">
-                Compass Angle: <span id="compass-value">0°</span>
+                <div class="data-box">
+                    Compass Angle: <span id="compass-value">0°</span>
+                </div>
             </div>
             <div class="data-row">
-                Gripper Status: <span id="gripper-status">Not Gripping</span>
+                <div class="data-box">
+                    Gripper Status: <span id="gripper-status">Not Gripping</span>
+                </div>
             </div>
             <div class="data-row">
-                Object Color: <span id="object-color">N/A</span>
+                <div class="data-box">
+                    Object Color: <span id="object-color">N/A</span>
+                </div>
             </div>
             <div class="data-row">
-                Ultrasonic 1 Distance: <span id="ultrasonic1">0 cm</span>
+                <div class="data-box">
+                    Ultrasonic 1 Distance: <span id="ultrasonic1">0 cm</span>
+                </div>
             </div>
             <div class="data-row">
-                Ultrasonic 2 Distance: <span id="ultrasonic2">0 cm</span>
+                <div class="data-box">
+                    Ultrasonic 2 Distance: <span id="ultrasonic2">0 cm</span>
+                </div>
             </div>
             <div class="data-row">
-                Ultrasonic 3 Distance: <span id="ultrasonic3">0 cm</span>
+                <div class="data-box">
+                    Ultrasonic 3 Distance: <span id="ultrasonic3">0 cm</span>
+                </div>
             </div>
         </div>
     </div>
@@ -105,27 +117,6 @@
         for (let i = 0; i < 100; i++) {
             const cell = document.createElement('div');
             cell.className = 'cell';
-
-            // Place sensors at specific positions
-            if (i === 19) {
-                const sensor1 = document.createElement('div');
-                sensor1.className = 'sensor';
-                sensor1.style.top = '10%';
-                sensor1.style.left = '20%';
-                arena.appendChild(sensor1);
-            } else if (i === 49) {
-                const sensor2 = document.createElement('div');
-                sensor2.className = 'sensor';
-                sensor2.style.top = '40%';
-                sensor2.style.left = '50%';
-                arena.appendChild(sensor2);
-            } else if (i === 79) {
-                const sensor3 = document.createElement('div');
-                sensor3.className = 'sensor';
-                sensor3.style.top = '70%';
-                sensor3.style.left = '80%';
-                arena.appendChild(sensor3);
-            }
 
             if (i === 99) {
                 // Place robot at the bottom-right corner
