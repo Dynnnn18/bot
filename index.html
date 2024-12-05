@@ -3,122 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot Map and Data Visualization</title>
+    <title>Arena Robot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
             justify-content: space-between;
-            padding: 20px;
-            background-color: #f5f5f5;
+            width: 90%;
         }
-        #map-container {
-            width: 60%;
-            height: 500px;
-            border: 2px solid #333;
-            position: relative;
-            background-color: #fff;
-        }
-        .grid {
+        .arena {
             display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-template-rows: repeat(10, 1fr);
-            width: 100%;
-            height: 100%;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(10, 50px);
+            gap: 2px;
+            background-color: #fff;
+            border: 2px solid #aaa;
+            position: relative;
         }
-        .grid-cell {
-            border: 1px solid #ddd;
-            width: 100%;
-            height: 100%;
-        }
-        .ultrasonic-sensor {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: rgba(0, 0, 255, 0.3);
-            border-radius: 50%;
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #aaa;
         }
         .robot {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        .sensor {
             position: absolute;
             width: 20px;
             height: 20px;
-            background-color: #ff0000;
+            background-color: rgba(0, 0, 255, 0.3);
             border-radius: 50%;
-            top: 80%;
-            left: 80%;
         }
         #data-container {
-            width: 35%;
-            padding: 10px;
+            width: 30%;
+            padding: 20px;
             background-color: #fff;
-            border: 2px solid #333;
+            border: 2px solid #aaa;
             height: 500px;
         }
-        #data-container h3 {
-            margin-top: 0;
-        }
         .data-row {
-            margin-bottom: 10px;
-        }
-        .sensor-data {
+            margin-bottom: 15px;
             font-size: 16px;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Arena Section -->
+        <div class="arena" id="arena">
+            <!-- Grid and robot generated dynamically -->
+        </div>
 
-<div id="map-container">
-    <div class="grid">
-        <!-- Grid Cells -->
-        <div class="grid-cell"></div>
-        <div class="grid-cell"></div>
-        <div class="grid-cell"></div>
-        <!-- Repeat for all 100 grid cells -->
+        <!-- Data Section -->
+        <div id="data-container">
+            <h3>Robot Data</h3>
+            <div class="data-row">
+                Compass Angle: <span id="compass-value">0°</span>
+            </div>
+            <div class="data-row">
+                Gripper Status: <span id="gripper-status">Not Gripping</span>
+            </div>
+            <div class="data-row">
+                Object Color: <span id="object-color">N/A</span>
+            </div>
+            <div class="data-row">
+                Ultrasonic 1 Distance: <span id="ultrasonic1">0 cm</span>
+            </div>
+            <div class="data-row">
+                Ultrasonic 2 Distance: <span id="ultrasonic2">0 cm</span>
+            </div>
+            <div class="data-row">
+                Ultrasonic 3 Distance: <span id="ultrasonic3">0 cm</span>
+            </div>
+        </div>
+    </div>
 
-        <!-- Ultrasonic Sensors (positioned manually) -->
-        <div class="ultrasonic-sensor" style="top: 10%; left: 20%;"></div>
-        <div class="ultrasonic-sensor" style="top: 40%; left: 50%;"></div>
-        <div class="ultrasonic-sensor" style="top: 70%; left: 80%;"></div>
+    <script>
+        // Generate arena grid dynamically
+        const arena = document.getElementById('arena');
+        for (let i = 0; i < 100; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
 
-        <!-- Robot -->
-        <div class="robot" id="robot"></div>
-    </div>
-</div>
+            // Place sensors at specific positions
+            if (i === 19) {
+                const sensor1 = document.createElement('div');
+                sensor1.className = 'sensor';
+                sensor1.style.top = '10%';
+                sensor1.style.left = '20%';
+                arena.appendChild(sensor1);
+            } else if (i === 49) {
+                const sensor2 = document.createElement('div');
+                sensor2.className = 'sensor';
+                sensor2.style.top = '40%';
+                sensor2.style.left = '50%';
+                arena.appendChild(sensor2);
+            } else if (i === 79) {
+                const sensor3 = document.createElement('div');
+                sensor3.className = 'sensor';
+                sensor3.style.top = '70%';
+                sensor3.style.left = '80%';
+                arena.appendChild(sensor3);
+            }
 
-<div id="data-container">
-    <h3>Robot Data</h3>
-    <div class="data-row">
-        <div class="sensor-data">Compass Angle: <span id="compass-value">0°</span></div>
-    </div>
-    <div class="data-row">
-        <div class="sensor-data">Gripper Status: <span id="gripper-status">Not Gripping</span></div>
-    </div>
-    <div class="data-row">
-        <div class="sensor-data">Object Color: <span id="object-color">N/A</span></div>
-    </div>
-    <div class="data-row">
-        <div class="sensor-data">Ultrasonic 1 Distance: <span id="ultrasonic1">0 cm</span></div>
-    </div>
-    <div class="data-row">
-        <div class="sensor-data">Ultrasonic 2 Distance: <span id="ultrasonic2">0 cm</span></div>
-    </div>
-    <div class="data-row">
-        <div class="sensor-data">Ultrasonic 3 Distance: <span id="ultrasonic3">0 cm</span></div>
-    </div>
-</div>
+            if (i === 99) {
+                // Place robot at the bottom-right corner
+                const robot = document.createElement('div');
+                robot.className = 'robot';
+                cell.appendChild(robot);
+            }
 
-<script>
-    // Sample data updates, you can integrate actual sensor values here
-    setInterval(() => {
-        document.getElementById("compass-value").textContent = Math.floor(Math.random() * 360) + "°";
-        document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
-        document.getElementById("object-color").textContent = ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
-        document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
-        document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
-        document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
-    }, 1000); // Update every second
-</script>
+            arena.appendChild(cell);
+        }
+
+        // Sample data updates, replace with actual sensor data
+        setInterval(() => {
+            document.getElementById("compass-value").textContent = Math.floor(Math.random() * 360) + "°";
+            document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
+            document.getElementById("object-color").textContent = ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
+            document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
+        }, 1000); // Update every second
+    </script>
 
 </body>
 </html>
