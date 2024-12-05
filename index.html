@@ -22,38 +22,44 @@
             font-size: 30px;
             font-weight: 600;
             margin: 10px 0;
-            color: #fff; /* White color for main title */
+            color: #fff; /* Change title color to white */
+        }
+
+        .title-container {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .main-container {
             display: flex;
-            justify-content: space-between;
-            width: 90%; /* Adjust width for better responsiveness */
+            flex-direction: column;
+            align-items: center;
+            width: 85%;
             margin-top: 30px;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            overflow: hidden;
-            flex-wrap: wrap; /* Wrap content on small screens */
-            gap: 20px;
         }
 
-        .left-column, .right-column {
-            width: 48%;
-            padding: 20px;
+        .arena-container, .data-container {
+            width: 100%;
             background-color: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            padding: 20px;
+            margin-bottom: 20px; /* Space between Arena and Data */
         }
 
-        .left-column:hover, .right-column:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .left-column h2, .right-column h2 {
+        .arena-container h2, .data-container h2 {
             color: #4a90e2; /* Blue color for section titles */
+            text-align: center;
         }
 
         .arena {
@@ -65,10 +71,8 @@
             border: 2px solid #ddd;
             border-radius: 10px;
             position: relative;
-            width: 100%; /* Full width for responsiveness */
-            max-width: 520px;
-            height: 100%; /* Full height for responsiveness */
-            max-height: 520px;
+            width: 520px; /* Total width of 10x10 grid */
+            height: 520px; /* Total height of 10x10 grid */
             margin: auto;
         }
 
@@ -96,13 +100,6 @@
             position: absolute;
             bottom: 0;
             right: 0;
-        }
-
-        .data-container {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .data-row {
@@ -135,36 +132,15 @@
             color: #fff;
         }
 
-        .title-container {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #4a90e2;
-            color: #fff;
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
         @media screen and (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-                width: 95%;
-            }
-
-            .left-column, .right-column {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-
             .arena {
                 width: 90%; /* Adjust width for smaller screens */
-                max-width: 100%;
-                height: 80%; /* Adjust height for smaller screens */
+                height: auto; /* Adjust height for smaller screens */
             }
 
-            .data-container {
-                padding: 15px;
+            .arena-container, .data-container {
+                width: 90%; /* Make container responsive */
+                padding: 10px;
             }
         }
 
@@ -177,40 +153,40 @@
         <h1>IoT Monitoring and Data Visualization</h1>
     </div>
 
-    <!-- Sub-title Section -->
+    <!-- Main Container with Arena Robot and Data -->
     <div class="main-container">
-        <!-- Left Column for Arena Robot -->
-        <div class="left-column">
+
+        <!-- Arena Robot Box -->
+        <div class="arena-container">
             <h2>Arena Robot</h2>
             <div class="arena" id="arena">
                 <!-- Grid and robot generated dynamically -->
             </div>
         </div>
 
-        <!-- Right Column for Robot Data -->
-        <div class="right-column">
+        <!-- Robot Data Box -->
+        <div class="data-container">
             <h2>Robot Data</h2>
-            <div class="data-container">
-                <div class="data-row">
-                    <span>Compass Angle:</span> <div class="data-box" id="compass-value">0°</div>
-                </div>
-                <div class="data-row">
-                    <span>Gripper Status:</span> <div class="data-box" id="gripper-status">Not Gripping</div>
-                </div>
-                <div class="data-row">
-                    <span>Object Color:</span> <div class="data-box" id="object-color">N/A</div>
-                </div>
-                <div class="data-row">
-                    <span>Ultrasonic 1 Distance:</span> <div class="data-box" id="ultrasonic1">0 cm</div>
-                </div>
-                <div class="data-row">
-                    <span>Ultrasonic 2 Distance:</span> <div class="data-box" id="ultrasonic2">0 cm</div>
-                </div>
-                <div class="data-row">
-                    <span>Ultrasonic 3 Distance:</span> <div class="data-box" id="ultrasonic3">0 cm</div>
-                </div>
+            <div class="data-row">
+                <span>Compass Angle:</span> <div class="data-box" id="compass-value">0°</div>
+            </div>
+            <div class="data-row">
+                <span>Gripper Status:</span> <div class="data-box" id="gripper-status">Not Gripping</div>
+            </div>
+            <div class="data-row">
+                <span>Object Color:</span> <div class="data-box" id="object-color">N/A</div>
+            </div>
+            <div class="data-row">
+                <span>Ultrasonic 1 Distance:</span> <div class="data-box" id="ultrasonic1">0 cm</div>
+            </div>
+            <div class="data-row">
+                <span>Ultrasonic 2 Distance:</span> <div class="data-box" id="ultrasonic2">0 cm</div>
+            </div>
+            <div class="data-row">
+                <span>Ultrasonic 3 Distance:</span> <div class="data-box" id="ultrasonic3">0 cm</div>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -238,7 +214,7 @@
             document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
             document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
             document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
-        }, 1000);
+        }, 1000); // Update every second
     </script>
 
 </body>
