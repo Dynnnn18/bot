@@ -28,13 +28,15 @@
         .main-container {
             display: flex;
             justify-content: space-between;
-            width: 85%;
+            width: 90%; /* Adjust width to be more responsive */
             margin-top: 30px;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             overflow: hidden;
+            flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+            gap: 20px; /* Space between columns */
         }
 
         .left-column, .right-column {
@@ -71,8 +73,10 @@
             border: 2px solid #ddd;
             border-radius: 10px;
             position: relative;
-            width: 520px; /* Total width of 10x10 grid */
-            height: 520px; /* Total height of 10x10 grid */
+            width: 100%; /* Full width for responsiveness */
+            max-width: 520px; /* Prevent overflow */
+            height: 100%; /* Full height for responsiveness */
+            max-height: 520px; /* Prevent overflow */
             margin: auto;
         }
 
@@ -150,6 +154,28 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
+        @media screen and (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                width: 95%;
+            }
+
+            .left-column, .right-column {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .arena {
+                width: 90%; /* Adjust width for smaller screens */
+                max-width: 100%;
+                height: 80%; /* Adjust height for smaller screens */
+            }
+
+            .data-container {
+                padding: 15px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -220,7 +246,7 @@
             document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
             document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
             document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
-        }, 1000); // Update every second
+        }, 1000);
     </script>
 
 </body>
