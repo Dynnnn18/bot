@@ -8,30 +8,25 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
             margin: 0;
             background-color: #f4f4f9;
-            flex-direction: column;
             text-align: center;
         }
         h1, h2 {
-            margin: 5px;
-            font-size: 24px;
+            margin: 10px 0;
+            font-size: 28px;
             font-weight: bold;
         }
-        .arena-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        .container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+        .main-container {
             width: 90%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .left-column, .right-column {
+            width: 48%;
         }
         .arena {
             display: grid;
@@ -41,7 +36,6 @@
             background-color: #fff;
             border: 2px solid #aaa;
             position: relative;
-            margin-bottom: 20px;
         }
         .cell {
             width: 50px;
@@ -62,7 +56,6 @@
             right: 0;
         }
         #data-container {
-            width: 30%;
             padding: 20px;
             background-color: #fff;
             border: 2px solid #aaa;
@@ -83,20 +76,23 @@
     </style>
 </head>
 <body>
-    <!-- Titles Section -->
-    <h1>Arena Robot</h1>
-    <h2>IoT Monitoring and Data Visualization</h2>
+    <!-- Main Title -->
+    <h1>IoT Monitoring and Data Visualization</h1>
 
-    <div class="arena-container">
-        <!-- Arena Section -->
-        <div class="arena" id="arena">
-            <!-- Grid and robot generated dynamically -->
+    <!-- Sub-title section -->
+    <div class="main-container">
+        <!-- Left Column for Arena Robot -->
+        <div class="left-column">
+            <h2>Arena Robot</h2>
+            <div class="arena" id="arena">
+                <!-- Grid and robot generated dynamically -->
+            </div>
         </div>
 
-        <!-- Data Section -->
-        <div class="container">
+        <!-- Right Column for Robot Data -->
+        <div class="right-column">
+            <h2>Robot Data</h2>
             <div id="data-container">
-                <h3>Robot Data</h3>
                 <div class="data-row">
                     <div class="data-box">
                         Compass Angle: <span id="compass-value">0°</span>
