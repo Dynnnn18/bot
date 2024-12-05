@@ -14,8 +14,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Adjust to start from top */
             height: 100vh;
+            overflow: hidden;
         }
 
         h1, h2 {
@@ -36,11 +37,13 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             overflow: hidden;
+            flex-grow: 1; /* Ensure it fills available space */
         }
 
         .section {
             width: 100%;
             margin-bottom: 20px;
+            flex-grow: 1;
         }
 
         .left-column, .right-column {
@@ -50,6 +53,8 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            height: 100%; /* Allow both sections to grow */
+            overflow: auto; /* Enable scrolling if content overflows */
         }
 
         .left-column:hover, .right-column:hover {
@@ -80,6 +85,7 @@
             width: 520px; /* Total width of 10x10 grid */
             height: 520px; /* Total height of 10x10 grid */
             margin: auto;
+            overflow: hidden; /* Prevent overflow */
         }
 
         .cell {
@@ -113,6 +119,8 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Allow scrolling for data container */
+            max-height: 500px; /* Limit max height */
         }
 
         .data-row {
