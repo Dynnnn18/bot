@@ -6,80 +6,145 @@
     <title>Arena Robot</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            background-color: #f4f4f9;
-            text-align: center;
+            justify-content: center;
+            height: 100vh;
         }
+
         h1, h2 {
+            font-size: 30px;
+            font-weight: 600;
             margin: 10px 0;
-            font-size: 28px;
-            font-weight: bold;
+            color: #4a90e2;
         }
+
         .main-container {
-            width: 90%;
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            width: 85%;
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden;
         }
+
         .left-column, .right-column {
             width: 48%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
+
+        .left-column:hover, .right-column:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
         .arena {
             display: grid;
             grid-template-columns: repeat(10, 50px);
             grid-template-rows: repeat(10, 50px);
             gap: 2px;
             background-color: #fff;
-            border: 2px solid #aaa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
             position: relative;
         }
+
         .cell {
             width: 50px;
             height: 50px;
-            background-color: #ddd;
+            background-color: #dce3f1;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #aaa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+
+        .cell:hover {
+            background-color: #e6f7ff;
+        }
+
         .robot {
             width: 30px;
             height: 30px;
-            background-color: red;
+            background-color: #ff4d4d;
             border-radius: 50%;
             position: absolute;
             bottom: 0;
             right: 0;
         }
-        #data-container {
-            padding: 20px;
+
+        .data-container {
             background-color: #fff;
-            border: 2px solid #aaa;
-            height: 500px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .data-row {
-            margin-bottom: 15px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         .data-box {
-            display: inline-block;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #aaa;
+            padding: 15px;
+            background-color: #4a90e2;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 8px;
             width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
         }
+
+        .data-box:hover {
+            background-color: #357ab7;
+        }
+
+        #compass-value, #gripper-status, #object-color, #ultrasonic1, #ultrasonic2, #ultrasonic3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .title-container {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
-    <!-- Main Title -->
-    <h1>IoT Monitoring and Data Visualization</h1>
 
-    <!-- Sub-title section -->
+    <!-- Title Section -->
+    <div class="title-container">
+        <h1>IoT Monitoring and Data Visualization</h1>
+    </div>
+
+    <!-- Sub-title Section -->
     <div class="main-container">
         <!-- Left Column for Arena Robot -->
         <div class="left-column">
@@ -92,36 +157,24 @@
         <!-- Right Column for Robot Data -->
         <div class="right-column">
             <h2>Robot Data</h2>
-            <div id="data-container">
+            <div class="data-container">
                 <div class="data-row">
-                    <div class="data-box">
-                        Compass Angle: <span id="compass-value">0°</span>
-                    </div>
+                    <span>Compass Angle:</span> <div class="data-box" id="compass-value">0°</div>
                 </div>
                 <div class="data-row">
-                    <div class="data-box">
-                        Gripper Status: <span id="gripper-status">Not Gripping</span>
-                    </div>
+                    <span>Gripper Status:</span> <div class="data-box" id="gripper-status">Not Gripping</div>
                 </div>
                 <div class="data-row">
-                    <div class="data-box">
-                        Object Color: <span id="object-color">N/A</span>
-                    </div>
+                    <span>Object Color:</span> <div class="data-box" id="object-color">N/A</div>
                 </div>
                 <div class="data-row">
-                    <div class="data-box">
-                        Ultrasonic 1 Distance: <span id="ultrasonic1">0 cm</span>
-                    </div>
+                    <span>Ultrasonic 1 Distance:</span> <div class="data-box" id="ultrasonic1">0 cm</div>
                 </div>
                 <div class="data-row">
-                    <div class="data-box">
-                        Ultrasonic 2 Distance: <span id="ultrasonic2">0 cm</span>
-                    </div>
+                    <span>Ultrasonic 2 Distance:</span> <div class="data-box" id="ultrasonic2">0 cm</div>
                 </div>
                 <div class="data-row">
-                    <div class="data-box">
-                        Ultrasonic 3 Distance: <span id="ultrasonic3">0 cm</span>
-                    </div>
+                    <span>Ultrasonic 3 Distance:</span> <div class="data-box" id="ultrasonic3">0 cm</div>
                 </div>
             </div>
         </div>
