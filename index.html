@@ -10,13 +10,12 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            text-align: center;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: auto; /* Remove fixed height for scrolling */
-            overflow-y: auto; /* Allow scrolling on the entire page */
+            justify-content: center;  /* Center vertically */
+            align-items: center;      /* Center horizontally */
+            height: 100vh;            /* Full viewport height */
+            overflow-y: auto;         /* Allow scrolling */
         }
 
         h1, h2 {
@@ -39,7 +38,8 @@
 
         .main-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;  /* Center columns horizontally */
+            gap: 20px;                /* Space between the columns */
             width: 85%;
             margin-top: 30px;
             background-color: #fff;
