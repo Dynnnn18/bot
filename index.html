@@ -10,12 +10,11 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: auto; /* Remove fixed height for scrolling */
+            min-height: 100vh; /* Ensure the body takes full height */
             overflow-y: auto; /* Allow scrolling on the entire page */
         }
 
@@ -47,6 +46,8 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             flex-wrap: wrap;
+            justify-content: center; /* Center the sections horizontally */
+            gap: 20px; /* Space between the columns */
         }
 
         .left-column, .right-column {
@@ -61,14 +62,6 @@
 
         .left-column:hover, .right-column:hover {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .left-column {
-            margin-right: 10px; /* Add space between the columns */
-        }
-
-        .right-column {
-            margin-left: 20px; /* Shift the right column to the right */
         }
 
         .left-column h2, .right-column h2 {
