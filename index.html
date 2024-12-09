@@ -85,16 +85,30 @@
             border-radius: 5px;
         }
 
-        /* Update the robot shape to be like an arrow */
+        /* Robot with arrow shape (combination of triangle and rectangle) */
         .robot {
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 35px solid #4a90e2;
             position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 25px; /* Rectangle part */
+            background-color: #4a90e2;
+            border-radius: 10px;
             transform-origin: center bottom;
             transition: transform 0.3s ease, bottom 0.3s ease, right 0.3s ease;
+        }
+
+        .robot::after {
+            content: '';
+            position: absolute;
+            top: -25px; /* Position the triangle above the rectangle */
+            left: 50%;
+            margin-left: -15px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid #4a90e2; /* Triangle part */
         }
 
         .data-container {
@@ -139,7 +153,7 @@
         <div class="left-column">
             <h2>Arena Robot</h2>
             <div class="arena" id="arena">
-                <div id="robot" class="robot" style="bottom: 0; right: 0;"></div>
+                <div id="robot" class="robot"></div>
             </div>
         </div>
 
