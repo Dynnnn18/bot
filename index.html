@@ -57,19 +57,19 @@
         }
 
         .left-column h2, .right-column h2 {
-            color: #4a90e2; /* Blue color for section titles */
+            color: #4a90e2;
         }
 
         .arena {
             display: grid;
-            grid-template-columns: repeat(10, 50px); /* 10x10 grid, each cell 50px */
-            grid-template-rows: repeat(10, 50px); 
+            grid-template-columns: repeat(10, 50px); /* 10x10 grid */
+            grid-template-rows: repeat(10, 50px);
             gap: 2px;
             background-color: #fff;
             border: 2px solid #ddd;
             border-radius: 10px;
             position: relative;
-            width: 520px;  /* 10 cells * 50px = 500px */
+            width: 520px; /* 10 cells * 50px */
             height: 520px;
             margin: auto;
         }
@@ -85,13 +85,12 @@
             border-radius: 5px;
         }
 
-        /* Robot with arrow shape */
         .robot {
             position: absolute;
             bottom: 0;
             right: 0;
             width: 50px;
-            height: 25px; /* Rectangle part */
+            height: 25px;
             background-color: #4a90e2;
             border-radius: 10px;
             transform-origin: center bottom;
@@ -101,98 +100,115 @@
         .robot::after {
             content: '';
             position: absolute;
-            top: -25px; /* Position the triangle above the rectangle */
+            top: -25px;
             left: 50%;
             margin-left: -15px;
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
-            border-bottom: 25px solid #4a90e2; /* Triangle part */
+            border-bottom: 25px solid #4a90e2;
         }
-
     </style>
 </head>
 <body>
 
     <div class="title-container">
-        <h1>Robot Arena Movement</h1>
+        <h1>Robot Movement Simulation</h1>
     </div>
 
     <div class="main-container">
         <div class="left-column">
-            <h2>Arena Robot</h2>
+            <h2>Arena</h2>
             <div class="arena" id="arena">
-                <div id="robot" class="robot"></div>
+                <!-- Kotak-kotak di arena -->
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <!-- Tambahkan baris lainnya jika diperlukan -->
+                <div class="robot" id="robot"></div>
             </div>
         </div>
 
         <div class="right-column">
-            <h2>Data Robot</h2>
-            <div>
-                <div>Compass Angle: <span id="compass-value">0°</span></div>
-                <div>Encoder Distance: <span id="encoder-distance">0 cm</span></div>
-            </div>
+            <h2>Robot Data</h2>
+            <div id="compass-value">Compass: 0°</div>
         </div>
     </div>
 
     <script>
         const robot = document.getElementById("robot");
-        let compassAngle = 0;  // Start facing 0 degrees (East)
-        let encoderDistance = 0;  // Start with no movement
+        let compassAngle = 0; // Arah kompas robot
+        let position = { x: 0, y: 0 }; // Posisi robot dalam grid (x, y)
+        const stepSize = 50; // Ukuran satu langkah dalam piksel (mewakili 5 cm per langkah)
 
-        let currentStep = 0;
-        const movementSteps = [
-            { direction: 0, distance: 20 },  // 0° direction, move 20 cm
-            { direction: 270, distance: 20 },  // 270° direction, move 20 cm
-            { direction: 180, distance: 10 }   // 180° direction, move 10 cm
-        ];
-
+        // Fungsi untuk memperbarui posisi robot berdasarkan kompas dan encoder
         function updateRobotPosition() {
             const arena = document.getElementById("arena");
             const arenaRect = arena.getBoundingClientRect();
 
-            // Calculate movement based on current step and compass angle
-            const xOffset = encoderDistance * Math.sin((compassAngle * Math.PI) / 180);
-            const yOffset = encoderDistance * Math.cos((compassAngle * Math.PI) / 180);
+            // Menghitung perubahan posisi berdasarkan arah kompas
+            const xOffset = Math.sin(compassAngle * Math.PI / 180) * stepSize;
+            const yOffset = Math.cos(compassAngle * Math.PI / 180) * stepSize;
 
-            // Update robot position
-            const newBottom = parseFloat(robot.style.bottom) + yOffset;
-            const newRight = parseFloat(robot.style.right) + xOffset;
+            // Update posisi berdasarkan perubahan yang dihitung
+            position.x += xOffset;
+            position.y += yOffset;
 
-            // Constrain movement within the arena bounds
-            robot.style.bottom = `${Math.max(0, Math.min(arenaRect.height, newBottom))}px`;
-            robot.style.right = `${Math.max(0, Math.min(arenaRect.width, newRight))}px`;
+            // Mengupdate posisi robot di arena
+            const newRight = arenaRect.width - position.x - stepSize; // Offset kanan
+            const newBottom = arenaRect.height - position.y - stepSize; // Offset bawah
 
-            // Rotate robot to the direction of compass
+            robot.style.right = `${Math.max(0, Math.min(arenaRect.width - stepSize, newRight))}px`;
+            robot.style.bottom = `${Math.max(0, Math.min(arenaRect.height - stepSize, newBottom))}px`;
+
+            // Update rotasi robot untuk mengikuti arah kompas
             robot.style.transform = `rotate(${compassAngle}deg)`;
-
-            // Update the data display
-            document.getElementById("compass-value").textContent = `${compassAngle}°`;
-            document.getElementById("encoder-distance").textContent = `${encoderDistance} cm`;
         }
 
+        // Fungsi untuk bergerak maju 20 cm, kemudian berbelok
         function moveRobot() {
-            if (currentStep < movementSteps.length) {
-                const step = movementSteps[currentStep];
-                compassAngle = step.direction;
-                encoderDistance = step.distance;
-
+            // Maju 20 cm (4 langkah)
+            for (let i = 0; i < 4; i++) {
                 setTimeout(() => {
-                    encoderDistance = 0; // Stop after moving the specified distance
-                    currentStep++;
-                    if (currentStep < movementSteps.length) {
-                        moveRobot();  // Continue to the next step
-                    }
-                }, step.distance * 1000);  // Each cm takes 1 second
+                    updateRobotPosition();
+                }, i * 1000); // Jarak 1 cm per detik (dengan 50px per langkah)
+            }
 
-                updateRobotPosition();  // Update position immediately
+            // Belok ke 270 derajat (arah kiri)
+            setTimeout(() => {
+                compassAngle = 270; // Belok kiri
+            }, 4000);
+
+            // Maju 20 cm (4 langkah)
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    updateRobotPosition();
+                }, (i + 5) * 1000); // Maju lagi
+            }
+
+            // Belok ke 180 derajat (arah belakang)
+            setTimeout(() => {
+                compassAngle = 180; // Belok ke belakang
+            }, 8000);
+
+            // Maju 10 cm (2 langkah)
+            for (let i = 0; i < 2; i++) {
+                setTimeout(() => {
+                    updateRobotPosition();
+                }, (i + 9) * 1000); // Maju lagi
             }
         }
 
-        // Start the robot movement
+        // Jalankan pergerakan robot
         moveRobot();
-
     </script>
 
 </body>
