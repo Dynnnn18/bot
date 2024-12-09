@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team 1</title>
+    <title>Arena Robot</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -43,7 +43,6 @@
             background-color: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
         }
 
         .arena {
@@ -79,7 +78,7 @@
             border-bottom: 25px solid #ff4d4d;
             position: absolute;
             transform-origin: center bottom;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, bottom 0.3s ease, right 0.3s ease;
         }
     </style>
 </head>
@@ -99,13 +98,25 @@
         </div>
 
         <div class="right-column">
-            <h2>Data Robot</h2>
+            <h2>Robot Data</h2>
             <div class="data-container">
                 <div class="data-row">
                     <span>Compass Angle:</span> <div class="data-box" id="compass-value">0°</div>
                 </div>
                 <div class="data-row">
-                    <span>Encoder Distance:</span> <div class="data-box" id="encoder-distance">0 cm</div>
+                    <span>Gripper Status:</span> <div class="data-box" id="gripper-status">Not Gripping</div>
+                </div>
+                <div class="data-row">
+                    <span>Object Color:</span> <div class="data-box" id="object-color">N/A</div>
+                </div>
+                <div class="data-row">
+                    <span>Ultrasonic 1 Distance:</span> <div class="data-box" id="ultrasonic1">0 cm</div>
+                </div>
+                <div class="data-row">
+                    <span>Ultrasonic 2 Distance:</span> <div class="data-box" id="ultrasonic2">0 cm</div>
+                </div>
+                <div class="data-row">
+                    <span>Ultrasonic 3 Distance:</span> <div class="data-box" id="ultrasonic3">0 cm</div>
                 </div>
             </div>
         </div>
@@ -120,12 +131,16 @@
             const arena = document.getElementById("arena");
             const arenaRect = arena.getBoundingClientRect();
 
-            // Calculate robot's position based on encoder and compass
+            // Calculate new position
             const xOffset = encoderDistance * Math.sin((compassAngle * Math.PI) / 180);
             const yOffset = encoderDistance * Math.cos((compassAngle * Math.PI) / 180);
 
-            robot.style.bottom = `${Math.max(0, Math.min(arenaRect.height, parseFloat(robot.style.bottom) + yOffset))}px`;
-            robot.style.right = `${Math.max(0, Math.min(arenaRect.width, parseFloat(robot.style.right) + xOffset))}px`;
+            const newBottom = parseFloat(robot.style.bottom) + yOffset;
+            const newRight = parseFloat(robot.style.right) + xOffset;
+
+            // Update position with bounds
+            robot.style.bottom = `${Math.max(0, Math.min(arenaRect.height, newBottom))}px`;
+            robot.style.right = `${Math.max(0, Math.min(arenaRect.width, newRight))}px`;
 
             // Rotate robot to reflect compass direction
             robot.style.transform = `rotate(${compassAngle}deg)`;
@@ -134,11 +149,11 @@
         setInterval(() => {
             // Simulated data updates
             compassAngle = Math.floor(Math.random() * 360);
-            encoderDistance = Math.floor(Math.random() * 10) - 5; // Move forward or backward randomly
+            encoderDistance = Math.floor(Math.random() * 10) - 5; // Random forward/backward distance
 
             document.getElementById("compass-value").textContent = `${compassAngle}°`;
-            document.getElementById("encoder-distance").textContent = `${encoderDistance} cm`;
 
+            // Update robot position in arena
             updateRobotPosition();
         }, 1000);
     </script>
