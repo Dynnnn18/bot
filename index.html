@@ -186,6 +186,8 @@
         const robot = document.getElementById("robot");
         let compassAngle = 0;
         let encoderDistance = 0;
+        let direction = 1; // 1 for forward, -1 for backward
+        let stepCounter = 0; // Counter to switch direction at intervals
 
         function updateRobotPosition() {
             const arena = document.getElementById("arena");
@@ -207,10 +209,19 @@
         }
 
         setInterval(() => {
-            // Simulated random data updates
-            compassAngle = Math.floor(Math.random() * 360);
-            encoderDistance += 5; // Increment encoder value to simulate forward movement
+            // Update encoder distance
+            encoderDistance += 1; // Increase the encoder value to simulate movement forward
 
+            // Change direction after every 50 steps (simulate a turn to form "S" shape)
+            if (stepCounter === 50) {
+                compassAngle += 45 * direction; // Turn 45 degrees either left or right
+                direction *= -1; // Reverse direction for next turn
+                stepCounter = 0; // Reset step counter
+            }
+
+            stepCounter++;
+
+            // Simulated random data updates
             document.getElementById("compass-value").textContent = `${compassAngle}°`;
             document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
             document.getElementById("object-color").textContent = ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
@@ -218,10 +229,8 @@
             document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
             document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
 
-            // Update robot position in arena
-            updateRobotPosition();
-        }, 1000);
+            updateRobotPosition(); // Update robot position on the arena
+        }, 100); // Update every 100ms
     </script>
-
 </body>
 </html>
