@@ -191,7 +191,7 @@
             const arena = document.getElementById("arena");
             const arenaRect = arena.getBoundingClientRect();
 
-            // Calculate new position
+            // Calculate new position based on encoder
             const xOffset = encoderDistance * Math.sin((compassAngle * Math.PI) / 180);
             const yOffset = encoderDistance * Math.cos((compassAngle * Math.PI) / 180);
 
@@ -209,7 +209,7 @@
         setInterval(() => {
             // Simulated random data updates
             compassAngle = Math.floor(Math.random() * 360);
-            encoderDistance += Math.floor(Math.random() * 10); // Increment encoder value to simulate movement
+            encoderDistance += 5; // Increment encoder value to simulate forward movement
 
             document.getElementById("compass-value").textContent = `${compassAngle}°`;
             document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
