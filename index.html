@@ -209,7 +209,7 @@
         setInterval(() => {
             // Simulated random data updates
             compassAngle = Math.floor(Math.random() * 360);
-            encoderDistance = Math.floor(Math.random() * 10) - 5; // Random forward/backward distance
+            encoderDistance += Math.floor(Math.random() * 10); // Increment encoder value to simulate movement
 
             document.getElementById("compass-value").textContent = `${compassAngle}°`;
             document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
