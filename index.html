@@ -56,6 +56,10 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
+        .left-column h2, .right-column h2 {
+            color: #4a90e2; /* Blue color for section titles */
+        }
+
         .arena {
             display: grid;
             grid-template-columns: repeat(10, 50px);
@@ -188,11 +192,16 @@
         }
 
         setInterval(() => {
-            // Simulated data updates
+            // Simulated random data updates
             compassAngle = Math.floor(Math.random() * 360);
             encoderDistance = Math.floor(Math.random() * 10) - 5; // Random forward/backward distance
 
             document.getElementById("compass-value").textContent = `${compassAngle}°`;
+            document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
+            document.getElementById("object-color").textContent = ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
+            document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
 
             // Update robot position in arena
             updateRobotPosition();
