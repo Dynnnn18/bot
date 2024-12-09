@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot Arena</title>
+    <title>Team 1</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -22,7 +22,42 @@
             font-size: 30px;
             font-weight: 600;
             margin: 10px 0;
-            color: #333;
+            color: #fff;
+        }
+
+        .title-container {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            width: 85%;
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .left-column, .right-column {
+            width: 48%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-column h2, .right-column h2 {
+            color: #4a90e2; /* Blue color for section titles */
         }
 
         .arena {
@@ -75,68 +110,118 @@
             border-right: 15px solid transparent;
             border-bottom: 25px solid #4a90e2; /* Triangle part */
         }
+
+        .data-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-row {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .data-box {
+            padding: 15px;
+            background-color: #4a90e2;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .data-box:hover {
+            background-color: #357ab7;
+        }
     </style>
 </head>
 <body>
 
     <div class="title-container">
-        <h1>Robot Movement Simulation</h1>
+        <h1>IoT Monitoring and Data Visualization</h1>
     </div>
 
-    <div class="arena" id="arena">
-        <div id="robot" class="robot"></div>
+    <div class="main-container">
+        <div class="left-column">
+            <h2>Arena Robot</h2>
+            <div class="arena" id="arena">
+                <div id="robot" class="robot"></div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <h2>Data Robot</h2>
+            <div class="data-container">
+                <div class="data-row">
+                    <span>Compass Angle:</span> <div class="data-box" id="compass-value">0°</div>
+                </div>
+                <div class="data-row">
+                    <span>Gripper Status:</span> <div class="data-box" id="gripper-status">Not Gripping</div>
+                </div>
+                <div class="data-row">
+                    <span>Object Color:</span> <div class="data-box" id="object-color">N/A</div>
+                </div>
+                <div class="data-row">
+                    <span>Ultrasonic 1 Distance:</span> <div class="data-box" id="ultrasonic1">0 cm</div>
+                </div>
+                <div class="data-row">
+                    <span>Ultrasonic 2 Distance:</span> <div class="data-box" id="ultrasonic2">0 cm</div>
+                </div>
+                <div class="data-row">
+                    <span>Ultrasonic 3 Distance:</span> <div class="data-box" id="ultrasonic3">0 cm</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         const robot = document.getElementById("robot");
         let compassAngle = 0;
         let encoderDistance = 0;
-        let direction = 1; // 1 for forward, -1 for backward
-        let stepCounter = 0; // Counter to switch direction at intervals
 
-        // Skala arena: setiap grid 50px mewakili 10cm
-        const scale = 10; // Setiap kotak = 10 cm
-        const gridSize = 10; // Arena 10x10 kotak
-        const stepSize = 10; // Setiap langkah encoder = 10 cm
-
-        // Fungsi untuk memperbarui posisi robot berdasarkan encoder dan kompas
         function updateRobotPosition() {
             const arena = document.getElementById("arena");
             const arenaRect = arena.getBoundingClientRect();
 
-            // Menghitung pergerakan robot berdasarkan encoder dalam satuan cm
+            // Calculate new position
             const xOffset = encoderDistance * Math.sin((compassAngle * Math.PI) / 180);
             const yOffset = encoderDistance * Math.cos((compassAngle * Math.PI) / 180);
 
-            // Mengubah posisi robot berdasarkan perhitungan pergerakan
             const newBottom = parseFloat(robot.style.bottom) + yOffset;
             const newRight = parseFloat(robot.style.right) + xOffset;
 
-            // Memastikan posisi robot berada dalam batas arena
+            // Update position with bounds
             robot.style.bottom = `${Math.max(0, Math.min(arenaRect.height, newBottom))}px`;
             robot.style.right = `${Math.max(0, Math.min(arenaRect.width, newRight))}px`;
 
-            // Memutar robot sesuai arah kompas
+            // Rotate robot to reflect compass direction
             robot.style.transform = `rotate(${compassAngle}deg)`;
         }
 
         setInterval(() => {
-            // Menambah encoder setiap interval
-            encoderDistance += stepSize; // Setiap langkah encoder bergerak 10 cm
+            // Simulated random data updates
+            compassAngle = Math.floor(Math.random() * 360);
+            encoderDistance = Math.floor(Math.random() * 10) - 5; // Random forward/backward distance
 
-            // Jika mencapai 50 langkah, ubah arah untuk membentuk pola "S"
-            if (stepCounter === 50) {
-                compassAngle += 45 * direction; // Robot berbelok 45 derajat (arah kiri/kanan)
-                direction *= -1; // Mengubah arah untuk berbalik
-                stepCounter = 0; // Reset hitungan langkah
-            }
+            document.getElementById("compass-value").textContent = `${compassAngle}°`;
+            document.getElementById("gripper-status").textContent = Math.random() > 0.5 ? "Gripping" : "Not Gripping";
+            document.getElementById("object-color").textContent = ["Red", "Green", "Blue"][Math.floor(Math.random() * 3)];
+            document.getElementById("ultrasonic1").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic2").textContent = Math.floor(Math.random() * 100) + " cm";
+            document.getElementById("ultrasonic3").textContent = Math.floor(Math.random() * 100) + " cm";
 
-            stepCounter++;
-
-            // Memperbarui tampilan robot
-            updateRobotPosition(); // Update posisi robot pada arena
-
-        }, 100); // Update setiap 100ms untuk simulasi gerakan
+            // Update robot position in arena
+            updateRobotPosition();
+        }, 1000);
     </script>
+
 </body>
 </html>
